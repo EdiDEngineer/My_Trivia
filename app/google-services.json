@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "393760686504",
+    "firebase_url": "https://mytrivia-cb4e5.firebaseio.com",
+    "project_id": "mytrivia-cb4e5",
+    "storage_bucket": "mytrivia-cb4e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393760686504:android:b153b31556bdd62e6bdd9d",
+        "android_client_info": {
+          "package_name": "edu.utap.mytrivia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "393760686504-vgc7lvcng0gvcf8c8pmn7rt04libnucd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTv6yySzG-eB3tG_rZgO5AEcQM5OJ3CQ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "393760686504-vgc7lvcng0gvcf8c8pmn7rt04libnucd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

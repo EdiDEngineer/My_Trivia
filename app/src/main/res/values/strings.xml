@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">My Trivia</string>
+    <string name="action_settings">Settings</string>
+    <string name="first_fragment_label">Login</string>
+    <string name="second_fragment_label">Sign Up</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="network_error">Check Network Connectivity…</string>
+    <string name="account_failed">Authentication Failed.</string>
+
+    <string name="time_ago_seconds">%d second(s) ago</string>
+    <string name="time_ago_minutes">%d minute(s) ago</string>
+    <string name="time_ago_hours">%d hour(s) ago</string>
+    <string name="time_ago_days">%d day(s) ago</string>
+    <string name="time_ago_months">%d month(s) ago</string>
+    <string name="time_ago_years">%d year(s) ago</string>
+    <string name="title_home">Quiz Home</string>
+    <string name="title_dashboard">Quiz Scoreboard</string>
+    <string name="search_by_score_and_category">Search by score and category</string>
+    <string name="quizzes_by_difficulty">Quizzes by difficulty.</string>
+    <string name="any">Any</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+    <string name="email">Email</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="click_button_below_to_start_game">Click button below to start game!</string>
+    <string name="play">play</string>
+    <string name="rate_game_amp_save"><![CDATA[Rate game & save]]></string>
+    <string name="save">Save</string>
+    <string name="the_number_of_questions_is_required_nthe_higher_the_difficulty_the_higher_the_points_and_lesser_the_duration">The number of questions is required.*\nThe higher the difficulty the higher the points and duration per question.</string>
+    <string name="enter_number_of_questions_from_5_50">Enter number of questions from 5 – 50 *</string>
+    <string name="start">Start</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="welcome">Welcome Back!!!</string>
+    <string name="continue_">Continue</string>
+    <string name="finish">Finish</string>
+    <string name="action_ok">Yes</string>
+    <string name="action_cancel">No</string>
+    <string name="see_more">See More</string>
+    <string name="see_less">See Less</string>
+
+
+</resources>

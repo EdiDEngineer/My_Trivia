@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_nav_graph"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="edu.utap.mytrivia.ui.home.fragment.home.QuizHomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_quiz_home">
+        <action
+            android:id="@+id/action_navigation_home_to_quizHomeSelectFragment"
+            app:destination="@id/quizHomeSelectFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_quiz_dashboard"
+        android:name="edu.utap.mytrivia.ui.home.fragment.dashboard.QuizDashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_quiz_dashboard">
+        <action
+            android:id="@+id/action_navigation_quiz_dashboard_to_quizDashboardViewFragment"
+            app:destination="@id/quizDashboardViewFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="edu.utap.mytrivia.ui.main.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/quizDashboardViewFragment"
+        android:name="edu.utap.mytrivia.ui.home.fragment.dashboard.QuizDashboardViewFragment"
+        tools:layout="@layout/fragment_quiz_dashboard_view">
+
+        <argument
+            android:name="difficulty"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizHomeSelectFragment"
+        android:name="edu.utap.mytrivia.ui.home.fragment.home.QuizHomeSelectFragment"
+        android:label="Quiz Settings"
+        tools:layout="@layout/fragment_quiz_home_select" >
+        <action
+            android:id="@+id/action_quizHomeSelectFragment_to_quizHomePlayFragment"
+            app:destination="@id/quizHomePlayFragment"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizHomePlayFragment"
+        android:name="edu.utap.mytrivia.ui.home.fragment.home.QuizHomePlayFragment"
+        android:label="Quiz"
+        tools:layout="@layout/fragment_quiz_home_play" >
+        <action
+            android:id="@+id/action_quizHomePlayFragment_to_quizHomeRatingFragment"
+            app:destination="@id/quizHomeRatingFragment"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_quizHomePlayFragment_to_quizHomeSelectFragment"
+            app:destination="@id/quizHomeSelectFragment"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="false"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/quizHomeRatingFragment"
+        android:name="edu.utap.mytrivia.ui.home.fragment.home.QuizHomeRatingFragment"
+        android:label="Quiz Rating"
+        tools:layout="@layout/fragment_quiz_home_rating" />
+
+</navigation>

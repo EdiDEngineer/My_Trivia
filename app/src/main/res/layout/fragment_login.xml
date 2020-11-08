@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="edu.utap.mytrivia.ui.main.fragment.LoginFragment" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.fragment.LoginFragment">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{fragment.viewModel.isLoading()?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{fragment.viewModel.isLoading()?View.GONE:View.VISIBLE}"
+            app:constraint_referenced_ids="login_button, login_email, login_pass, account, account_sign_up" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/login_email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/email"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:endIconDrawable="@drawable/ic_baseline_email_24"
+            app:endIconMode="custom"
+            app:errorEnabled="true"
+            app:layout_constraintBottom_toTopOf="@id/login_pass"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/login_pass"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/password"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:endIconMode="password_toggle"
+            app:errorEnabled="true"
+            app:layout_constraintBottom_toTopOf="@id/login_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_email">
+
+            <com.google.android.material.textfield.TextInputEditText
+                done="@{()->fragment.login()}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionId="6"
+                android:imeActionLabel="@string/login"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/login_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->fragment.login()}"
+            android:text="@string/login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/login_pass"
+            app:layout_constraintStart_toStartOf="@id/login_pass"
+            app:layout_constraintTop_toBottomOf="@id/login_pass" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/account_sign_up"
+            android:text="@string/don_t_have_an_account"
+            app:layout_constraintBottom_toBottomOf="@id/account_sign_up"
+            app:layout_constraintEnd_toStartOf="@id/account_sign_up"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/account_sign_up"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:onClick="@{()->fragment.signUp()}"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:text="@string/sign_up"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/account"
+             />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

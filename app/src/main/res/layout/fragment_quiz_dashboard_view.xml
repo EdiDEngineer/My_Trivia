@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="edu.utap.mytrivia.ui.home.fragment.dashboard.QuizDashboardViewFragment" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.home.fragment.dashboard.QuizDashboardViewFragment">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/search_edit"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="@string/search_by_score_and_category"
+            app:boxCornerRadiusBottomEnd="24dp"
+            app:boxCornerRadiusBottomStart="24dp"
+            app:boxCornerRadiusTopEnd="24dp"
+            app:boxCornerRadiusTopStart="24dp"
+            app:endIconDrawable="@drawable/ic_baseline_search_24"
+            app:endIconMode="custom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chipGroup"
+            app:listQuizData="@{fragment.viewModel.getQuizzesByDifficulty}"
+            tools:listitem="@layout/item_quiz" />
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/chipGroup"
+            app:layout_constraintTop_toBottomOf="@id/search_edit"
+            app:layout_constraintStart_toStartOf="@id/search_edit"
+            android:layout_marginTop="8dp"
+            app:chipSpacing="4dp"
+            app:singleSelection="true"
+            >
+            <com.google.android.material.chip.Chip
+                android:id="@+id/anyChip"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="Any"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/multiChip"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="Multiple Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/boolChip"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="True / False"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                />
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{()->fragment.deleteAll()}"
+            android:text="Clear"
+            android:textColor="@color/white"
+            android:visibility="@{fragment.viewModel.getQuizzesByDifficulty.size()==0?View.GONE:View.VISIBLE}"
+            app:backgroundTint="@color/purple_500"
+            app:icon="@drawable/ic_baseline_delete_24"
+            app:iconTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

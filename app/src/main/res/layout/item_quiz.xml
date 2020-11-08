@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="quiz"
+            type="edu.utap.mytrivia.data.local.entity.Quiz" />
+        <import type="edu.utap.mytrivia.util.ExtensionsKt"/>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            app:cardBackgroundColor="@color/material_on_primary_disabled"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/score"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="5 (3)" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:constraint_referenced_ids="duration,rating,noOfQuestion" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/duration"
+                app:layout_constraintTop_toBottomOf="@id/duration"
+                tools:text="Category: ANY" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/time"
+                timeAgo="@{quiz.timeOfDay}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintBottom_toBottomOf="@id/seeMore"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/seeMore"
+                tools:text="about a day ago" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text='@{"Type: " + quiz.type}'
+                app:layout_constraintStart_toStartOf="@id/score"
+                app:layout_constraintTop_toBottomOf="@id/score"
+                tools:text="Type: ANY" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/noOfQuestion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text='@{"Number of Questions: " + quiz.noOfQuestions}'
+                app:layout_constraintStart_toStartOf="@id/category"
+                app:layout_constraintTop_toBottomOf="@id/category"
+                tools:text="Number of Questions: ANY" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/duration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text='@{"Duration: " + ExtensionsKt.getDurationString(quiz.quizDuration)}'
+                app:layout_constraintStart_toStartOf="@id/rating"
+                app:layout_constraintTop_toBottomOf="@id/rating"
+                tools:text="Duration: ANY" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/rating"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text='@{"Rating: " + quiz.rating}'
+                app:layout_constraintStart_toStartOf="@id/type"
+                app:layout_constraintTop_toBottomOf="@id/type"
+                tools:text="Rating: ANY" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/seeMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="4dp"
+                android:layout_marginBottom="8dp"
+                android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
+                android:background="?selectableItemBackgroundBorderless"
+                android:text="See More"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/noOfQuestion" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

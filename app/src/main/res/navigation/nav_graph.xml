@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/LoginFragment">
+
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="edu.utap.mytrivia.ui.main.fragment.LoginFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_LoginFragment_to_SignUpFragment"
+            app:destination="@id/SignUpFragment" />
+        <action
+            android:id="@+id/action_LoginFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment"
+            app:popUpTo="@id/LoginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SignUpFragment"
+        android:name="edu.utap.mytrivia.ui.main.fragment.SignUpFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_signup">
+        <action
+            android:id="@+id/action_SignUpFragment_to_LoginFragment"
+            app:destination="@id/LoginFragment"
+            app:popUpTo="@id/LoginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_SignUpFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment"
+            app:popUpTo="@id/LoginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="edu.utap.mytrivia.ui.main.fragment.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome">
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_homeActivity"
+            app:destination="@id/homeActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/homeActivity"
+        android:name="edu.utap.mytrivia.ui.home.HomeActivity"
+        android:label="activity_home"
+        tools:layout="@layout/activity_home"/>
+</navigation>
