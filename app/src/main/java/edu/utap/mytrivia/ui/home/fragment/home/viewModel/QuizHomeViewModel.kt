@@ -18,10 +18,10 @@ import java.util.*
 
 class QuizHomeViewModel(app: Application) : AndroidViewModel(app) {
 
+    private val anyPoint = 8
     private val easyPoint = 2
     private val mediumPoint = 3
     private val hardPoint = 5
-    private val anyPoint = 8
     private val easySeconds = 5
     private val mediumSeconds = 10
     private val anyOrHardSeconds = 15

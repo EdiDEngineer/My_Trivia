@@ -2,6 +2,7 @@ package edu.utap.mytrivia.ui.home.fragment.home
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -53,17 +54,45 @@ class QuizHomePlayFragment : Fragment(R.layout.fragment_quiz_home_play) {
 
         viewModel.question.observe(viewLifecycleOwner, {
             if (it != null) {
+                if (binding.swipe.isRefreshing) {
+                    animateViewsIn()
+                }
                 binding.swipe.isRefreshing = false
                 binding.textQuestion.text = it.question.fromHtmlToString()
             }
         })
 
-        viewModel.settingsInvalid.observe(viewLifecycleOwner,{
-            if (it){
-                activity?.showShortToast("No questions match your settings")
+        viewModel.settingsInvalid.observe(viewLifecycleOwner, {
+            if (it) {
+                context?.showShortToast("No questions match your settings")
                 navController.navigate(QuizHomePlayFragmentDirections.actionQuizHomePlayFragmentToQuizHomeSelectFragment())
             }
         })
 
     }
+
+    private fun animateViewsIn() {
+        var offset = resources.getDimensionPixelSize(R.dimen.offset_y).toFloat()
+        val interpolator =
+            AnimationUtils.loadInterpolator(
+                context,
+                android.R.interpolator.linear_out_slow_in
+            )
+
+        for (i in 0..binding.swipe.childCount) {
+            val view = binding.swipe.getChildAt(i)
+            view?.translationY = offset
+            view?.alpha = 0.85f
+            view?.animate()
+                ?.translationY(0f)
+                ?.alpha(1f)
+                ?.setInterpolator(interpolator)
+                ?.setDuration(1000L)
+                ?.start()
+            offset *= 1.5f
+        }
+
+    }
+
+
 }

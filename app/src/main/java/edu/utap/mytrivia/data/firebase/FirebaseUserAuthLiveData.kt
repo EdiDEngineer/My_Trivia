@@ -37,4 +37,6 @@ class FirebaseUserAuthLiveData : LiveData<FirebaseUser?>() {
 
     fun signOut() = firebaseAuth.signOut()
 
+    fun uid() = firebaseAuth.currentUser?.uid
+
 }

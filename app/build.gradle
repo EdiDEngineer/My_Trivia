@@ -70,13 +70,7 @@ dependencies {
 
     implementation "com.google.firebase:firebase-analytics-ktx"
     implementation "com.google.firebase:firebase-auth-ktx"
-
-    implementation("com.github.bumptech.glide:glide:4.11.0@aar") {
-        transitive = true
-    }
-
-
-    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation "com.google.firebase:firebase-firestore-ktx"
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
@@ -99,19 +93,5 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
-
-    //add later
-
-    // Preferences DataStore
-    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha02"
-
-    // Proto DataStore
-    implementation "androidx.datastore:datastore-core:1.0.0-alpha02"
-
-
-    implementation "androidx.paging:paging-runtime:$paging_version"
-
-    // alternatively - without Android dependencies for tests
-    testImplementation "androidx.paging:paging-common:$paging_version"
 
 }

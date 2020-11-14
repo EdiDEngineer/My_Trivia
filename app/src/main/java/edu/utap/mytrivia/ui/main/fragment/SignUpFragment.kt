@@ -49,6 +49,7 @@ class SignUpFragment : Fragment(R.layout.fragment_signup) {
                         binding.signUpEmail.editText?.text.toString(),
                         binding.signUpPass.editText?.text.toString()
                     ).await()
+                    viewModel.downloadQuizzes()
                 } catch (e: FirebaseNetworkException) {
                     viewModel.resetLoad()
                     showSnackBar(

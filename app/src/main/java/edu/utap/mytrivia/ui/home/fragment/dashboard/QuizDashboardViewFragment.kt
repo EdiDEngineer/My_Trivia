@@ -2,9 +2,10 @@ package edu.utap.mytrivia.ui.home.fragment.dashboard
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -14,10 +15,11 @@ import edu.utap.mytrivia.ui.home.HomeActivity
 import edu.utap.mytrivia.ui.home.fragment.dashboard.adapter.QuizScoreListAdapter
 import edu.utap.mytrivia.ui.home.fragment.dashboard.viewModel.QuizDashboardViewModel
 import edu.utap.mytrivia.util.showDialog
+import java.util.*
 
 class QuizDashboardViewFragment : Fragment(R.layout.fragment_quiz_dashboard_view) {
     private lateinit var binding: FragmentQuizDashboardViewBinding
-    val viewModel: QuizDashboardViewModel by viewModels()
+    val viewModel: QuizDashboardViewModel by  activityViewModels()
     private val navArgs: QuizDashboardViewFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,6 +55,7 @@ class QuizDashboardViewFragment : Fragment(R.layout.fragment_quiz_dashboard_view
                 else -> viewModel.typeFilter(null)
             }
         }
+        animateViewsIn()
 
     }
 
@@ -89,7 +92,7 @@ class QuizDashboardViewFragment : Fragment(R.layout.fragment_quiz_dashboard_view
                         }
                     ) { _, _ ->
                         quiz?.let {
-                            viewModel.deleteQuizById(it.id)
+                            viewModel.deleteQuizById(it)
                         }
                     }
                 }
@@ -99,9 +102,45 @@ class QuizDashboardViewFragment : Fragment(R.layout.fragment_quiz_dashboard_view
 
     fun deleteAll() {
         context?.showDialog(
-            message = "Are you sure you want to delete quizzes for this difficulty?"
+            message = "Are you sure you want to delete all quizzes for this difficulty?"
         ) { _, _ ->
             viewModel.deleteQuizzesByDifficulty(navArgs.difficulty)
+        }
+    }
+
+    private fun animateViewsIn() {
+        val maxWidthOffset = 2f * resources.displayMetrics.widthPixels
+        val maxHeightOffset = 2f * resources.displayMetrics.heightPixels
+        val interpolator =
+            AnimationUtils.loadInterpolator(
+                context,
+                android.R.interpolator.linear_out_slow_in
+            )
+        val random = Random()
+        val count: Int = binding.constraint.childCount
+        for (i in 0..count) {
+            val view = binding.constraint.getChildAt(i)
+            view?.visibility = View.VISIBLE
+            view?.alpha = 0.85f
+            var xOffset = random.nextFloat() * maxWidthOffset
+            if (random.nextBoolean()) {
+                xOffset *= -1f
+            }
+            view?.translationX = xOffset
+            var yOffset = random.nextFloat() * maxHeightOffset
+            if (random.nextBoolean()) {
+                yOffset *= -1f
+            }
+
+            view?.translationY = yOffset
+
+            view?.animate()
+                ?.translationY(0f)
+                ?.translationX(0f)
+                ?.alpha(1f)
+                ?.setInterpolator(interpolator)
+                ?.setDuration(1000)
+                ?.start()
         }
     }
 

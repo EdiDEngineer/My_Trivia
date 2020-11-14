@@ -13,7 +13,10 @@ fun RecyclerView.bindChoiceRecyclerView(data: List<String>?) {
     val adapter = adapter as QuizChoicesListAdapter
     adapter.apply {
         addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
-            drawable?.colorFilter = PorterDuffColorFilter(ContextCompat.getColor(context, android.R.color.darker_gray), PorterDuff.Mode.SRC)
+            drawable?.colorFilter = PorterDuffColorFilter(
+                ContextCompat.getColor(context, android.R.color.darker_gray),
+                PorterDuff.Mode.SRC
+            )
         })
         submitList(data)
     }

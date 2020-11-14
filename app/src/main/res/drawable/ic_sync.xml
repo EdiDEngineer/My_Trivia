@@ -1,0 +1,17 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="@integer/viewport_width"
+    android:viewportHeight="@integer/viewport_height">
+    <group
+        android:name="@string/groupSync"
+        android:pivotX="@integer/viewport_center_x"
+        android:pivotY="@integer/viewport_center_y">
+
+        <path
+            android:name="@string/sync"
+            android:fillColor="@color/white"
+            android:strokeWidth="@integer/stroke_width"
+            android:pathData="@string/path_sync" />
+    </group>
+</vector>

@@ -24,6 +24,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private val navController by lazy {
         findNavController()
     }
+
     private fun isValidEmail() =
         binding.loginEmail.editText?.text?.toString()?.isValidEmail() ?: false
 
@@ -51,8 +52,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         binding.loginEmail.editText?.text.toString(),
                         binding.loginPass.editText?.text.toString()
                     ).await()
-
-
+                    viewModel.downloadQuizzes()
                 } catch (e: FirebaseNetworkException) {
                     viewModel.resetLoad()
                     showSnackBar(
@@ -99,10 +99,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         viewModel.firebaseUserAuthLiveData.observe(viewLifecycleOwner, {
-            it?.email?.let {
+            it?.email?.let { email ->
                 navController.navigate(
                     LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(
-                        it
+                        email
                     )
                 )
             }

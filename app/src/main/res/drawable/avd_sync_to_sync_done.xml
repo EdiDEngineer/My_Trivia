@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_sync">
+
+    <target
+        android:name="@string/sync"
+        android:animation="@animator/sync_to_sync_done" />
+
+    <target
+        android:name="@string/groupSync"
+        android:animation="@animator/rotate_sync_to_sync_done" />
+
+</animated-vector>

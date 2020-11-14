@@ -1,7 +1,11 @@
 package edu.utap.mytrivia.data
 
+import android.util.Log
+import edu.utap.mytrivia.data.firebase.entity.FirebaseQuiz
+import edu.utap.mytrivia.data.firebase.entity.asQuizModel
 import edu.utap.mytrivia.data.local.MyTriviaDatabase
 import edu.utap.mytrivia.data.local.entity.Quiz
+import edu.utap.mytrivia.data.local.entity.asFirebaseQuizModel
 import edu.utap.mytrivia.data.remote.TriviaApi
 import edu.utap.mytrivia.data.remote.entity.TriviaQuestion
 import kotlinx.coroutines.Dispatchers
@@ -33,7 +37,7 @@ class Repository(
         db.quizDao.observeQuizzesByDifficulty(difficulty)
 
     suspend fun insertQuiz(quiz: Quiz) = withContext(Dispatchers.IO) {
-        db.quizDao.insertQuiz(quiz)
+        db.quizDao.insertQuizzes(quiz)
     }
 
     suspend fun deleteQuizById(id: Long): Int = withContext(Dispatchers.IO) {
@@ -46,6 +50,18 @@ class Repository(
 
     suspend fun clearTables() = withContext(Dispatchers.IO) {
         db.clearAllTables()
+    }
+
+    suspend fun getQuizzes(ownerUid: String) = withContext(Dispatchers.IO) {
+        db.quizDao.getQuizzes().asFirebaseQuizModel(ownerUid)
+    }
+
+    suspend fun insertQuizzes(quizzes: List<FirebaseQuiz>) = withContext(Dispatchers.IO) {
+        db.quizDao.insertQuizzes(*quizzes.asQuizModel())
+    }
+
+    suspend fun updateQuizzes(quizzes: FirebaseQuiz) = withContext(Dispatchers.IO) {
+        db.quizDao.updateQuizzes(quizzes.asQuizModel())
     }
 
 }

@@ -3,11 +3,14 @@ package edu.utap.mytrivia.util
 import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
 import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -35,11 +38,11 @@ fun Fragment.showSnackBar(
     actionString: String = "",
     listener: View.OnClickListener? = null
 ) {
-    val snackbar = view?.let { Snackbar.make(it, message, length) }
+    val snackBar = view?.let { Snackbar.make(it, message, length) }
     if (actionString.isNotEmpty()) {
-        snackbar?.setAction(actionString, listener)
+        snackBar?.setAction(actionString, listener)
     }
-    snackbar?.show()
+    snackBar?.show()
 }
 
 fun TextInputLayout.validate(message: String, validator: (String) -> Boolean) {
@@ -70,7 +73,7 @@ fun Context.showShortToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
-fun String.fromHtmlToString(): String =
+fun String.fromHtmlToString() =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY).toString()
     } else {
@@ -120,12 +123,16 @@ fun Context.showDialog(
 }
 
 fun SpannableString.searchSpan(subtext: String): Boolean {
-   clearSpans()
+    clearSpans()
     if (subtext.isEmpty()) return true
     val i = indexOf(subtext, ignoreCase = true)
     if (i == -1) return false
     setSpan(
-        Typeface.BOLD, i, i + subtext.length,
+        StyleSpan(Typeface.BOLD), i, i + subtext.length,
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    setSpan(
+        ForegroundColorSpan(Color.CYAN), i, i + subtext.length,
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
     )
     return true
