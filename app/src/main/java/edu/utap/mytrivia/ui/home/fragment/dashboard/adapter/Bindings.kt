@@ -18,7 +18,7 @@ fun RecyclerView.bindQuizRecyclerView(data: List<Quiz>?) {
 
 @BindingAdapter("timeAgo")
 fun TextView.timeAgo(date: Date) {
-    val diff = Date(System.currentTimeMillis()).time - date.time
+    val diff = Date().time - date.time
     val seconds = TimeUnit.SECONDS.convert(diff, TimeUnit.MILLISECONDS)
     val minutes = TimeUnit.MINUTES.convert(diff, TimeUnit.MILLISECONDS)
     val hours = TimeUnit.HOURS.convert(diff, TimeUnit.MILLISECONDS)
@@ -41,6 +41,5 @@ fun TextView.timeAgo(date: Date) {
             resources.getString(R.string.time_ago_years, years.toInt())
         }
     }
-
     text = words
 }

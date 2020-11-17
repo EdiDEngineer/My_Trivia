@@ -1,4 +1,4 @@
-package edu.utap.mytrivia.data.remote.entity
+package edu.utap.mytrivia.data.remote.model
 
 import com.squareup.moshi.JsonClass
 

@@ -6,9 +6,7 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
-import android.text.Html
-import android.text.Spannable
-import android.text.SpannableString
+import android.text.*
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Patterns
@@ -18,6 +16,9 @@ import android.widget.Toast
 import androidx.core.text.clearSpans
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
@@ -136,4 +137,51 @@ fun SpannableString.searchSpan(subtext: String): Boolean {
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
     )
     return true
+}
+
+fun Context.minMaxInputFilter(
+    minValue: Int,
+    maxValue: Int
+) =
+    InputFilter { charSequence: CharSequence, _: Int, _: Int, spanned: Spanned, i2: Int, i3: Int ->
+        try {
+            var input = spanned.substring(0, i2) + spanned.substring(
+                i3,
+                spanned.toString().length
+            )
+            input = input.substring(0, i2) + charSequence + input.substring(
+                i2,
+                input.length
+            )
+
+            val status = input.toInt() in minValue..maxValue
+            if (!status) {
+                showShortToast("Value not in range $minValue - $maxValue")
+            } else {
+                return@InputFilter null
+            }
+        } catch (e: NumberFormatException) {
+            e.printStackTrace()
+        }
+        ""
+    }
+
+
+fun Lifecycle.onEventObserver(
+    resumeFunction: () -> Unit,
+    pauseFunction: () -> Unit
+) {
+    val lifecycleObserver = object : LifecycleObserver {
+        @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+        private fun resumeFunction() {
+            resumeFunction()
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+        private fun pauseFunction() {
+            pauseFunction()
+        }
+    }
+
+    addObserver(lifecycleObserver)
 }

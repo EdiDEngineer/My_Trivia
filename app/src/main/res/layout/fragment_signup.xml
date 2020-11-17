@@ -104,10 +104,10 @@
             android:id="@+id/account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
             android:text="@string/already_have_an_account"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/account_login"
             app:layout_constraintEnd_toStartOf="@id/account_login"
+            app:layout_constraintTop_toTopOf="@id/account_login"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -119,10 +119,11 @@
             android:onClick="@{()->fragment.login()}"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:text="@string/login"
-            app:layout_constraintBottom_toBottomOf="@id/account"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/account"
-            app:layout_constraintTop_toTopOf="@id/account" />
+           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

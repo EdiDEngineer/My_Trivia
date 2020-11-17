@@ -1,7 +1,7 @@
 package edu.utap.mytrivia.data.firebase
 
 import com.google.firebase.firestore.FirebaseFirestore
-import edu.utap.mytrivia.data.firebase.entity.FirebaseQuiz
+import edu.utap.mytrivia.data.firebase.model.FirebaseQuiz
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext

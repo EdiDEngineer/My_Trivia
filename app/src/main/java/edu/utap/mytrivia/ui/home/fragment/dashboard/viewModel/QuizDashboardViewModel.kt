@@ -1,7 +1,6 @@
 package edu.utap.mytrivia.ui.home.fragment.dashboard.viewModel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import edu.utap.mytrivia.data.Repository
 import edu.utap.mytrivia.data.firebase.FirebaseFireStore
@@ -69,19 +68,16 @@ class QuizDashboardViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun uploadQuizzes() {
+        _upload.postValue(true)
         viewModelScope.launch {
             firebaseUserAuthLiveData.uid()?.let { uid ->
-                repository.getQuizzes(uid).forEachIndexed { index, firebaseQuiz ->
-                    if (index == 0) {
-                        _upload.postValue(true)
-                    }
-
+                repository.getQuizzesNotUploaded(uid).forEach{ firebaseQuiz ->
                     FirebaseFireStore.upload(firebaseQuiz)?.let {
                         repository.updateQuizzes(it)
                     }
                 }
-                _upload.postValue(false)
             }
+            _upload.postValue(false)
         }
     }
 

@@ -3,7 +3,7 @@ package edu.utap.mytrivia.data.remote
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import edu.utap.mytrivia.data.remote.entity.TriviaResponse
+import edu.utap.mytrivia.data.remote.model.TriviaResponse
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

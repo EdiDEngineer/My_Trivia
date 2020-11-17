@@ -4,7 +4,7 @@ import android.text.SpannableString
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
-import edu.utap.mytrivia.data.firebase.entity.FirebaseQuiz
+import edu.utap.mytrivia.data.firebase.model.FirebaseQuiz
 import java.util.*
 
 @Entity(tableName = "quiz_table")

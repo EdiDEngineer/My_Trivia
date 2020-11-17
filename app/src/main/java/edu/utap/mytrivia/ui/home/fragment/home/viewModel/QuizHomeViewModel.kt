@@ -11,7 +11,7 @@ import edu.utap.mytrivia.data.Repository
 import edu.utap.mytrivia.data.firebase.FirebaseUserAuthLiveData
 import edu.utap.mytrivia.data.local.MyTriviaDatabase
 import edu.utap.mytrivia.data.local.entity.Quiz
-import edu.utap.mytrivia.data.remote.entity.TriviaQuestion
+import edu.utap.mytrivia.data.remote.model.TriviaQuestion
 import edu.utap.mytrivia.util.getDurationString
 import kotlinx.coroutines.*
 import java.util.*

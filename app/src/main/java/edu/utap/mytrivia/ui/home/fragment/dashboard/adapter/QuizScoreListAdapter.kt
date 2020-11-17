@@ -12,7 +12,6 @@ import edu.utap.mytrivia.data.local.entity.Quiz
 import edu.utap.mytrivia.databinding.ItemQuizBinding
 import edu.utap.mytrivia.ui.home.fragment.dashboard.adapter.QuizScoreListAdapter.QuizScoreListViewHolder.Companion.from
 
-
 class QuizScoreListAdapter : ListAdapter<Quiz,
         QuizScoreListAdapter.QuizScoreListViewHolder>(QuizDiffCallback()) {
 

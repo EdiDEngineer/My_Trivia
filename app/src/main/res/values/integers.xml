@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="duration">450</integer>
+    <integer name="duration">1000</integer>
     <integer name="viewport_width">24</integer>
     <integer name="viewport_height">24</integer>
     <integer name="viewport_center_x">12</integer>

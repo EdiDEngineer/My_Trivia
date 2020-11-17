@@ -14,7 +14,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import edu.utap.mytrivia.R
-import edu.utap.mytrivia.data.firebase.FirebaseUserAuthLiveData
 import edu.utap.mytrivia.ui.home.fragment.home.viewModel.QuizHomeViewModel
 
 

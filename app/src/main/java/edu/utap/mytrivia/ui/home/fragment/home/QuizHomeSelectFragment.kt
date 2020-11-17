@@ -9,9 +9,8 @@ import com.google.android.material.snackbar.Snackbar
 import edu.utap.mytrivia.R
 import edu.utap.mytrivia.databinding.FragmentQuizHomeSelectBinding
 import edu.utap.mytrivia.ui.home.fragment.home.viewModel.QuizHomeViewModel
-import edu.utap.mytrivia.util.MinMaxInputFilter
+import edu.utap.mytrivia.util.minMaxInputFilter
 import edu.utap.mytrivia.util.showSnackBar
-import java.util.*
 
 class QuizHomeSelectFragment : Fragment(R.layout.fragment_quiz_home_select) {
     private lateinit var binding: FragmentQuizHomeSelectBinding
@@ -19,6 +18,7 @@ class QuizHomeSelectFragment : Fragment(R.layout.fragment_quiz_home_select) {
     private val navController by lazy {
         findNavController()
     }
+
     private fun isValid() = binding.noSelect.editText?.text?.toString()?.let {
         try {
             it.toInt() >= 5
@@ -32,7 +32,9 @@ class QuizHomeSelectFragment : Fragment(R.layout.fragment_quiz_home_select) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentQuizHomeSelectBinding.bind(requireView())
         binding.fragment = this
-        binding.noSelect.editText?.filters = arrayOf(MinMaxInputFilter(1, 50, context))
+        context?.let {
+            binding.noSelect.editText?.filters = arrayOf(it.minMaxInputFilter(1, 50))
+        }
         viewModel.resetQuiz()
     }
 

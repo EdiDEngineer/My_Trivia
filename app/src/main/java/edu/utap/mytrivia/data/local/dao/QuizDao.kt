@@ -17,7 +17,7 @@ interface QuizDao {
     suspend fun deleteQuizzesByDifficulty(difficulty: String)
 
     @Query("SELECT * FROM quiz_table where upload = 0")
-    suspend fun getQuizzes(): List<Quiz>
+    suspend fun getQuizzesNotUploaded(): List<Quiz>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertQuizzes(vararg quizzes: Quiz)

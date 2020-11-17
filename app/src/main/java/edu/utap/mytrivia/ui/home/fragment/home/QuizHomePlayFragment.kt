@@ -12,6 +12,7 @@ import edu.utap.mytrivia.ui.home.fragment.home.adapter.QuizChoicesListAdapter
 import edu.utap.mytrivia.ui.home.fragment.home.adapter.QuizChoicesListener
 import edu.utap.mytrivia.ui.home.fragment.home.viewModel.QuizHomeViewModel
 import edu.utap.mytrivia.util.fromHtmlToString
+import edu.utap.mytrivia.util.onEventObserver
 import edu.utap.mytrivia.util.showShortToast
 
 class QuizHomePlayFragment : Fragment(R.layout.fragment_quiz_home_play) {
@@ -39,7 +40,7 @@ class QuizHomePlayFragment : Fragment(R.layout.fragment_quiz_home_play) {
             }
         })
 
-        QuizTimer(lifecycle, { viewModel.startTimer() }, { viewModel.stopTimer() })
+        lifecycle.onEventObserver({ viewModel.startTimer() }, { viewModel.stopTimer() })
 
         viewModel.currentTime.observe(viewLifecycleOwner, {
             if (it == "00:00") {
@@ -91,7 +92,6 @@ class QuizHomePlayFragment : Fragment(R.layout.fragment_quiz_home_play) {
                 ?.start()
             offset *= 1.5f
         }
-
     }
 
 

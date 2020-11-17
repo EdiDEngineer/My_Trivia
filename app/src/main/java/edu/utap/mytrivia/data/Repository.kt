@@ -1,13 +1,12 @@
 package edu.utap.mytrivia.data
 
-import android.util.Log
-import edu.utap.mytrivia.data.firebase.entity.FirebaseQuiz
-import edu.utap.mytrivia.data.firebase.entity.asQuizModel
+import edu.utap.mytrivia.data.firebase.model.FirebaseQuiz
+import edu.utap.mytrivia.data.firebase.model.asQuizModel
 import edu.utap.mytrivia.data.local.MyTriviaDatabase
 import edu.utap.mytrivia.data.local.entity.Quiz
 import edu.utap.mytrivia.data.local.entity.asFirebaseQuizModel
 import edu.utap.mytrivia.data.remote.TriviaApi
-import edu.utap.mytrivia.data.remote.entity.TriviaQuestion
+import edu.utap.mytrivia.data.remote.model.TriviaQuestion
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -52,8 +51,8 @@ class Repository(
         db.clearAllTables()
     }
 
-    suspend fun getQuizzes(ownerUid: String) = withContext(Dispatchers.IO) {
-        db.quizDao.getQuizzes().asFirebaseQuizModel(ownerUid)
+    suspend fun getQuizzesNotUploaded(ownerUid: String) = withContext(Dispatchers.IO) {
+        db.quizDao.getQuizzesNotUploaded().asFirebaseQuizModel(ownerUid)
     }
 
     suspend fun insertQuizzes(quizzes: List<FirebaseQuiz>) = withContext(Dispatchers.IO) {

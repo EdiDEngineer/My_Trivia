@@ -10,7 +10,6 @@ import edu.utap.mytrivia.R
 import edu.utap.mytrivia.databinding.FragmentQuizDashboardBinding
 import edu.utap.mytrivia.ui.home.fragment.dashboard.viewModel.QuizDashboardViewModel
 
-
 class QuizDashboardFragment : Fragment(R.layout.fragment_quiz_dashboard) {
 
     val viewModel: QuizDashboardViewModel by activityViewModels()
@@ -23,7 +22,7 @@ class QuizDashboardFragment : Fragment(R.layout.fragment_quiz_dashboard) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentQuizDashboardBinding.bind(requireView())
         binding.fragment = this
-        binding.lifecycleOwner= viewLifecycleOwner
+        binding.lifecycleOwner = viewLifecycleOwner
 
     }
 

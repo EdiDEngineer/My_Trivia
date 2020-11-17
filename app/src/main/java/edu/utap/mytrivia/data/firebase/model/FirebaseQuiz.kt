@@ -1,4 +1,4 @@
-package edu.utap.mytrivia.data.firebase.entity
+package edu.utap.mytrivia.data.firebase.model
 
 import android.text.SpannableString
 import com.google.firebase.Timestamp

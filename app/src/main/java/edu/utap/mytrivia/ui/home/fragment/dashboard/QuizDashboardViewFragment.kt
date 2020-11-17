@@ -114,7 +114,7 @@ class QuizDashboardViewFragment : Fragment(R.layout.fragment_quiz_dashboard_view
         val interpolator =
             AnimationUtils.loadInterpolator(
                 context,
-                android.R.interpolator.linear_out_slow_in
+                android.R.interpolator.cycle
             )
         val random = Random()
         val count: Int = binding.constraint.childCount
