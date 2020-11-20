@@ -9,18 +9,21 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import edu.utap.mytrivia.R
 import edu.utap.mytrivia.databinding.FragmentQuizDashboardViewBinding
 import edu.utap.mytrivia.ui.home.HomeActivity
-import edu.utap.mytrivia.ui.home.fragment.dashboard.adapter.QuizScoreListAdapter
+import edu.utap.mytrivia.ui.home.fragment.dashboard.adapter.QuizListAdapter
 import edu.utap.mytrivia.ui.home.fragment.dashboard.viewModel.QuizDashboardViewModel
 import edu.utap.mytrivia.util.showDialog
 import java.util.*
 
+@AndroidEntryPoint
 class QuizDashboardViewFragment : Fragment(R.layout.fragment_quiz_dashboard_view) {
     private lateinit var binding: FragmentQuizDashboardViewBinding
-    val viewModel: QuizDashboardViewModel by  activityViewModels()
+    val viewModel: QuizDashboardViewModel by activityViewModels()
     private val navArgs: QuizDashboardViewFragmentArgs by navArgs()
+    private lateinit var adapter: QuizListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,7 +38,7 @@ class QuizDashboardViewFragment : Fragment(R.layout.fragment_quiz_dashboard_view
         (activity as HomeActivity).supportActionBar?.title =
             navArgs.difficulty + " Quizzes"
 
-        val adapter = QuizScoreListAdapter()
+        adapter = QuizListAdapter()
         binding.searchEdit.editText?.doAfterTextChanged {
             it?.let {
                 viewModel.search(it.toString())
@@ -44,7 +47,6 @@ class QuizDashboardViewFragment : Fragment(R.layout.fragment_quiz_dashboard_view
         }
 
         binding.recyclerView.adapter = adapter
-
         initTouchHelper().attachToRecyclerView(binding.recyclerView)
 
         binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
@@ -52,10 +54,10 @@ class QuizDashboardViewFragment : Fragment(R.layout.fragment_quiz_dashboard_view
                 binding.multiChip.id -> viewModel.typeFilter("Multiple Choice")
                 binding.boolChip.id -> viewModel.typeFilter("True / False")
                 binding.anyChip.id -> viewModel.typeFilter("Any")
-                else -> viewModel.typeFilter(null)
+                else -> viewModel.typeFilter("")
             }
         }
-        animateViewsIn()
+        animateViews()
 
     }
 
@@ -88,11 +90,11 @@ class QuizDashboardViewFragment : Fragment(R.layout.fragment_quiz_dashboard_view
                         message = "Are you sure you want to delete this quiz?",
                         negativeAction = { dialog, _ ->
                             dialog.dismiss()
-                            binding.recyclerView.adapter?.notifyItemChanged(pos)
+                            adapter.notifyItemChanged(pos)
                         }
                     ) { _, _ ->
                         quiz?.let {
-                            viewModel.deleteQuizById(it)
+                            viewModel.deleteQuiz(it)
                         }
                     }
                 }
@@ -108,20 +110,20 @@ class QuizDashboardViewFragment : Fragment(R.layout.fragment_quiz_dashboard_view
         }
     }
 
-    private fun animateViewsIn() {
+    private fun animateViews() {
         val maxWidthOffset = 2f * resources.displayMetrics.widthPixels
         val maxHeightOffset = 2f * resources.displayMetrics.heightPixels
         val interpolator =
             AnimationUtils.loadInterpolator(
                 context,
-                android.R.interpolator.cycle
+                android.R.interpolator.linear_out_slow_in
             )
         val random = Random()
         val count: Int = binding.constraint.childCount
         for (i in 0..count) {
             val view = binding.constraint.getChildAt(i)
             view?.visibility = View.VISIBLE
-            view?.alpha = 0.85f
+            view?.alpha = 0.75f
             var xOffset = random.nextFloat() * maxWidthOffset
             if (random.nextBoolean()) {
                 xOffset *= -1f

@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 @BindingAdapter("listQuizData")
 fun RecyclerView.bindQuizRecyclerView(data: List<Quiz>?) {
-    val adapter = adapter as QuizScoreListAdapter
+    val adapter = adapter as QuizListAdapter
     adapter.submitList(data) {
         scrollToPosition(0)
     }

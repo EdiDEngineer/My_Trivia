@@ -10,8 +10,8 @@ interface QuizDao {
     @Query("SELECT * FROM quiz_table where difficulty =:difficulty order by score desc, timeOfDay desc")
     fun observeQuizzesByDifficulty(difficulty: String): LiveData<List<Quiz>>
 
-    @Query("DELETE FROM quiz_table WHERE id = :id")
-    suspend fun deleteQuizById(id: Long): Int
+    @Delete
+    suspend fun deleteQuiz(vararg quiz: Quiz)
 
     @Query("DELETE FROM quiz_table  where difficulty =:difficulty")
     suspend fun deleteQuizzesByDifficulty(difficulty: String)

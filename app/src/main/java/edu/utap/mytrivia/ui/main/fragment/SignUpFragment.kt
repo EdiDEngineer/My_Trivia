@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseNetworkException
+import dagger.hilt.android.AndroidEntryPoint
 import edu.utap.mytrivia.R
 import edu.utap.mytrivia.databinding.FragmentSignupBinding
 import edu.utap.mytrivia.ui.main.viewModel.MainViewModel
@@ -15,6 +16,8 @@ import edu.utap.mytrivia.util.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
+
+@AndroidEntryPoint
 class SignUpFragment : Fragment(R.layout.fragment_signup) {
     private lateinit var binding: FragmentSignupBinding
     val viewModel: MainViewModel by activityViewModels()
@@ -49,7 +52,6 @@ class SignUpFragment : Fragment(R.layout.fragment_signup) {
                         binding.signUpEmail.editText?.text.toString(),
                         binding.signUpPass.editText?.text.toString()
                     ).await()
-                    viewModel.downloadQuizzes()
                 } catch (e: FirebaseNetworkException) {
                     viewModel.resetLoad()
                     showSnackBar(
@@ -87,7 +89,7 @@ class SignUpFragment : Fragment(R.layout.fragment_signup) {
         viewModel.firebaseUserAuthLiveData.observe(viewLifecycleOwner, {
             it?.email?.let {
                 navController.navigate(
-                    SignUpFragmentDirections.actionSignUpFragmentToWelcomeFragment(
+                    SignUpFragmentDirections.toWelcomeFragment(
                         it
                     )
                 )

@@ -5,6 +5,7 @@ import edu.utap.mytrivia.data.firebase.model.FirebaseQuiz
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 object FirebaseFireStore {
     private val db = FirebaseFirestore.getInstance()

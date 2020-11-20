@@ -14,16 +14,11 @@
         <action
             android:id="@+id/action_LoginFragment_to_SignUpFragment"
             app:destination="@id/SignUpFragment"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            />
-        <action
-            android:id="@+id/action_LoginFragment_to_welcomeFragment"
-            app:destination="@id/welcomeFragment"
             app:popUpTo="@id/LoginFragment"
             app:popUpToInclusive="true"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
+
             />
     </fragment>
 
@@ -40,16 +35,15 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             />
-        <action
-            android:id="@+id/action_SignUpFragment_to_welcomeFragment"
-            app:destination="@id/welcomeFragment"
-            app:popUpTo="@id/LoginFragment"
-            app:popUpToInclusive="true"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            />
     </fragment>
-
+    <action
+        android:id="@+id/to_welcomeFragment"
+        app:destination="@id/welcomeFragment"
+        app:popUpTo="@id/LoginFragment"
+        app:popUpToInclusive="true"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        />
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="edu.utap.mytrivia.ui.main.fragment.WelcomeFragment"

@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
 import android.text.*
+import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Patterns
@@ -95,28 +96,19 @@ fun Context.showDialog(
             MaterialAlertDialogBuilder(
                 this,
                 android.R.style.ThemeOverlay_Material_Dialog_Alert
-            ).apply {
-                setTitle(title)
-                    .setMessage(message)
-                    .setPositiveButton(positiveText) { dialog, id ->
-                        positiveAction(dialog, id)
-                    }
-                    .setNegativeButton(negativeText) { dialog, id ->
-                        negativeAction(dialog, id)
-                    }
-            }
+            )
         } else {
             MaterialAlertDialogBuilder(
                 this
-            ).apply {
-                setTitle(title)
-                    .setMessage(message)
-                    .setPositiveButton(positiveText) { dialog, id ->
-                        positiveAction(dialog, id)
-                    }
-                    .setNegativeButton(negativeText) { dialog, id ->
-                        negativeAction(dialog, id)
-                    }
+            )
+        }.apply {
+            setTitle(title)
+            setMessage(message)
+            setPositiveButton(positiveText) { dialog, id ->
+                positiveAction(dialog, id)
+            }
+            setNegativeButton(negativeText) { dialog, id ->
+                negativeAction(dialog, id)
             }
         }
 
@@ -133,7 +125,7 @@ fun SpannableString.searchSpan(subtext: String): Boolean {
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
     )
     setSpan(
-        ForegroundColorSpan(Color.CYAN), i, i + subtext.length,
+        BackgroundColorSpan(Color.CYAN), i, i + subtext.length,
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
     )
     return true
@@ -156,7 +148,7 @@ fun Context.minMaxInputFilter(
 
             val status = input.toInt() in minValue..maxValue
             if (!status) {
-                showShortToast("Value not in range $minValue - $maxValue")
+                showShortToast("Number not in range $minValue - $maxValue")
             } else {
                 return@InputFilter null
             }
@@ -180,6 +172,11 @@ fun Lifecycle.onEventObserver(
         @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
         private fun pauseFunction() {
             pauseFunction()
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        private fun removeObserver() {
+            removeObserver(this)
         }
     }
 

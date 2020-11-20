@@ -2,6 +2,7 @@ package edu.utap.mytrivia.data.local.entity
 
 import android.text.SpannableString
 import androidx.room.Entity
+import androidx.room.Fts4
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
 import edu.utap.mytrivia.data.firebase.model.FirebaseQuiz

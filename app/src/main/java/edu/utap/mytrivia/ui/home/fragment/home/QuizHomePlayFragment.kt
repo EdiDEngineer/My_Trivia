@@ -6,6 +6,7 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import edu.utap.mytrivia.R
 import edu.utap.mytrivia.databinding.FragmentQuizHomePlayBinding
 import edu.utap.mytrivia.ui.home.fragment.home.adapter.QuizChoicesListAdapter
@@ -15,6 +16,7 @@ import edu.utap.mytrivia.util.fromHtmlToString
 import edu.utap.mytrivia.util.onEventObserver
 import edu.utap.mytrivia.util.showShortToast
 
+@AndroidEntryPoint
 class QuizHomePlayFragment : Fragment(R.layout.fragment_quiz_home_play) {
 
     private lateinit var binding: FragmentQuizHomePlayBinding
@@ -56,7 +58,7 @@ class QuizHomePlayFragment : Fragment(R.layout.fragment_quiz_home_play) {
         viewModel.question.observe(viewLifecycleOwner, {
             if (it != null) {
                 if (binding.swipe.isRefreshing) {
-                    animateViewsIn()
+                    animateViews()
                 }
                 binding.swipe.isRefreshing = false
                 binding.textQuestion.text = it.question.fromHtmlToString()
@@ -70,9 +72,16 @@ class QuizHomePlayFragment : Fragment(R.layout.fragment_quiz_home_play) {
             }
         })
 
+        viewModel.networkFailed.observe(viewLifecycleOwner, {
+            if (it) {
+                context?.showShortToast("No network connectivity...")
+                navController.navigate(QuizHomePlayFragmentDirections.actionQuizHomePlayFragmentToQuizHomeSelectFragment())
+            }
+        })
+
     }
 
-    private fun animateViewsIn() {
+    private fun animateViews() {
         var offset = resources.getDimensionPixelSize(R.dimen.offset_y).toFloat()
         val interpolator =
             AnimationUtils.loadInterpolator(
@@ -83,7 +92,7 @@ class QuizHomePlayFragment : Fragment(R.layout.fragment_quiz_home_play) {
         for (i in 0..binding.swipe.childCount) {
             val view = binding.swipe.getChildAt(i)
             view?.translationY = offset
-            view?.alpha = 0.85f
+            view?.alpha = 0.75f
             view?.animate()
                 ?.translationY(0f)
                 ?.alpha(1f)

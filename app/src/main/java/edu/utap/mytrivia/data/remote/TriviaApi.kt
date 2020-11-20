@@ -6,7 +6,6 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import edu.utap.mytrivia.data.remote.model.TriviaResponse
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -34,14 +33,9 @@ interface TriviaApi {
             .add(KotlinJsonAdapterFactory())
             .build()
 
-        fun create(): TriviaApi = create(url)
+        fun create(client: OkHttpClient): TriviaApi = create(url, client)
 
-        private fun create(httpUrl: HttpUrl): TriviaApi {
-            val client = OkHttpClient.Builder().retryOnConnectionFailure(true)
-                .addInterceptor(HttpLoggingInterceptor().apply {
-                    level = HttpLoggingInterceptor.Level.BASIC
-                })
-                .build()
+        private fun create(httpUrl: HttpUrl, client: OkHttpClient): TriviaApi {
             return Retrofit.Builder()
                 .baseUrl(httpUrl)
                 .client(client)

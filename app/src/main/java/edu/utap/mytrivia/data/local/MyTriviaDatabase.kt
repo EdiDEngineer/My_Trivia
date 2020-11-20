@@ -9,7 +9,7 @@ import edu.utap.mytrivia.data.local.converter.Converters
 import edu.utap.mytrivia.data.local.dao.QuizDao
 import edu.utap.mytrivia.data.local.entity.Quiz
 
-@Database(entities = [Quiz::class], version =1, exportSchema = false)
+@Database(entities = [Quiz::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class MyTriviaDatabase : RoomDatabase() {
 
@@ -21,13 +21,13 @@ abstract class MyTriviaDatabase : RoomDatabase() {
         fun getDatabaseInstance(context: Context): MyTriviaDatabase {
             synchronized(this) {
                 if (!::INSTANCE.isInitialized) {
-                   INSTANCE = Room.databaseBuilder(
-                            context,
-                            MyTriviaDatabase::class.java,
-                            "My Trivia Database"
+                    INSTANCE = Room.databaseBuilder(
+                        context,
+                        MyTriviaDatabase::class.java,
+                        "Trivia-Database"
                     )
-                            .fallbackToDestructiveMigration()
-                            .build()
+                        .fallbackToDestructiveMigration()
+                        .build()
                 }
                 return INSTANCE
             }

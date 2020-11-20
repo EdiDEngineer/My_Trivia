@@ -35,8 +35,7 @@ class FirebaseUserAuthLiveData : LiveData<FirebaseUser?>() {
             firebaseAuth.signInWithEmailAndPassword(email, password)
         }
 
-    fun signOut() = firebaseAuth.signOut()
-
-    fun uid() = firebaseAuth.currentUser?.uid
+    suspend fun signOut() = withContext(Dispatchers.IO)
+    { firebaseAuth.signOut() }
 
 }

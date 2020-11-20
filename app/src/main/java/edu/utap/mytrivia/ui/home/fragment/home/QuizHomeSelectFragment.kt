@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import edu.utap.mytrivia.R
 import edu.utap.mytrivia.databinding.FragmentQuizHomeSelectBinding
 import edu.utap.mytrivia.ui.home.fragment.home.viewModel.QuizHomeViewModel
 import edu.utap.mytrivia.util.minMaxInputFilter
 import edu.utap.mytrivia.util.showSnackBar
 
+@AndroidEntryPoint
 class QuizHomeSelectFragment : Fragment(R.layout.fragment_quiz_home_select) {
     private lateinit var binding: FragmentQuizHomeSelectBinding
     private val viewModel: QuizHomeViewModel by activityViewModels()

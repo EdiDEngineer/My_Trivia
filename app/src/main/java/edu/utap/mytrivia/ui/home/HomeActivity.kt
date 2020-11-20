@@ -13,15 +13,17 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import edu.utap.mytrivia.R
+import edu.utap.mytrivia.ui.home.fragment.dashboard.viewModel.QuizDashboardViewModel
 import edu.utap.mytrivia.ui.home.fragment.home.viewModel.QuizHomeViewModel
 
-
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     private val navController by lazy {
         supportFragmentManager.findFragmentById(R.id.home_nav_host_fragment)!!.findNavController()
     }
-    private val viewModel: QuizHomeViewModel by viewModels()
+    private val viewModel: QuizDashboardViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,8 +71,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun signOut() {
-        viewModel.clearTables()
-        viewModel.firebaseUserAuthLiveData.signOut()
+        viewModel.signOut()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

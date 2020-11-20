@@ -25,7 +25,7 @@
 
 
 
-        <com.google.android.material.card.MaterialCardView
+        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
             android:id="@+id/anyDifficultyGroup"
             android:layout_width="0dp"
             android:layout_height="120dp"
@@ -45,9 +45,9 @@
                 android:layout_gravity="center"
                 android:text="@string/any" />
 
-        </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
-        <com.google.android.material.card.MaterialCardView
+        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
             android:id="@+id/easyDifficultyGroup"
             android:layout_width="0dp"
             android:layout_height="120dp"
@@ -67,9 +67,9 @@
                 android:layout_gravity="center"
                 android:text="@string/easy" />
 
-        </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
-        <com.google.android.material.card.MaterialCardView
+        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
             android:id="@+id/mediumDifficultyGroup"
             android:layout_width="0dp"
             android:layout_height="120dp"
@@ -89,9 +89,9 @@
                 android:layout_gravity="center"
                 android:text="@string/medium" />
 
-        </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
-        <com.google.android.material.card.MaterialCardView
+        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
             android:id="@+id/hardDifficultyGroup"
             android:layout_width="0dp"
             android:layout_height="120dp"
@@ -111,7 +111,7 @@
                 android:layout_gravity="center"
                 android:text="@string/hard" />
 
-        </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
 
         <com.google.android.material.imageview.ShapeableImageView

@@ -5,10 +5,12 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import edu.utap.mytrivia.R
 import edu.utap.mytrivia.databinding.FragmentWelcomeBinding
 
 
+@AndroidEntryPoint
 class WelcomeFragment : Fragment(R.layout.fragment_welcome) {
 
     private lateinit var binding: FragmentWelcomeBinding

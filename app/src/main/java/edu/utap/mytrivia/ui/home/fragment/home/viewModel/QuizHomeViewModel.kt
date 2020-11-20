@@ -2,21 +2,23 @@ package edu.utap.mytrivia.ui.home.fragment.home.viewModel
 
 import android.app.Application
 import android.text.SpannableString
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import edu.utap.mytrivia.R
 import edu.utap.mytrivia.data.Repository
-import edu.utap.mytrivia.data.firebase.FirebaseUserAuthLiveData
-import edu.utap.mytrivia.data.local.MyTriviaDatabase
 import edu.utap.mytrivia.data.local.entity.Quiz
 import edu.utap.mytrivia.data.remote.model.TriviaQuestion
 import edu.utap.mytrivia.util.getDurationString
 import kotlinx.coroutines.*
 import java.util.*
 
-class QuizHomeViewModel(app: Application) : AndroidViewModel(app) {
+class QuizHomeViewModel @ViewModelInject constructor(
+    private val repository: Repository,
+    app: Application
+) : AndroidViewModel(app) {
 
     private val anyPoint = 8
     private val easyPoint = 2
@@ -30,16 +32,15 @@ class QuizHomeViewModel(app: Application) : AndroidViewModel(app) {
     private var quizDuration: Int? = null
     private var timerJob: Deferred<Unit>? = null
     private var questions: List<TriviaQuestion>? = null
-    val firebaseUserAuthLiveData = FirebaseUserAuthLiveData()
     private val _currentTime = MutableLiveData("")
     private val _question = MutableLiveData<TriviaQuestion?>()
     private val _settingsInvalid = MutableLiveData(false)
+    private val _networkFailed = MutableLiveData(false)
+    val networkFailed: LiveData<Boolean> = _networkFailed
     val settingsInvalid: LiveData<Boolean> = _settingsInvalid
     val currentTime: LiveData<String> = _currentTime
     val question: LiveData<TriviaQuestion?> = _question
     private val categories = app.resources.getStringArray(R.array.category)
-    private val repository =
-        Repository(db = MyTriviaDatabase.getDatabaseInstance(app))
 
     fun saveValid() = quiz?.rating != null
 
@@ -68,12 +69,6 @@ class QuizHomeViewModel(app: Application) : AndroidViewModel(app) {
         else -> (score / anyPoint) * (duration / anyOrHardSeconds)
     }
 
-    fun clearTables() {
-        viewModelScope.launch {
-            repository.clearTables()
-        }
-    }
-
     fun getQuestions(
     ) {
         quiz?.let {
@@ -96,8 +91,8 @@ class QuizHomeViewModel(app: Application) : AndroidViewModel(app) {
             else -> "boolean"
         },
         if (quiz.category.toString() == "Any") "" else (categories.indexOf(quiz.category.toString()) + 8).toString()
-    )?.apply {
-        if (isNotEmpty()) {
+    ).apply {
+        if (!isNullOrEmpty()) {
             shuffled()
             val quest = first()
             quest.incorrect_answers.add(quest.correct_answer)
@@ -108,7 +103,9 @@ class QuizHomeViewModel(app: Application) : AndroidViewModel(app) {
                 quiz.maxScore = getScoreForQuestions(quiz.noOfQuestions.toInt(), quiz.difficulty)
             }
             startTimer()
-        }else{
+        } else if (this == null) {
+            _networkFailed.postValue(true)
+        } else {
             _settingsInvalid.postValue(true)
         }
     }
@@ -144,6 +141,7 @@ class QuizHomeViewModel(app: Application) : AndroidViewModel(app) {
         _currentTime.postValue("")
         stopTimer()
         _settingsInvalid.postValue(false)
+        _networkFailed.postValue(false)
     }
 
     fun setQuiz(
@@ -152,7 +150,6 @@ class QuizHomeViewModel(app: Application) : AndroidViewModel(app) {
         type: String,
         category: String
     ) {
-
         quiz = Quiz(
             noOfQuestions = amount,
             category = SpannableString.valueOf(category),

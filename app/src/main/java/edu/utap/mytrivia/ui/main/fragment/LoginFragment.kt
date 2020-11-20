@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import dagger.hilt.android.AndroidEntryPoint
 import edu.utap.mytrivia.R
 import edu.utap.mytrivia.databinding.FragmentLoginBinding
 import edu.utap.mytrivia.ui.main.viewModel.MainViewModel
@@ -17,6 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 
+@AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private lateinit var binding: FragmentLoginBinding
@@ -35,7 +37,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-
     }
 
 
@@ -101,7 +102,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         viewModel.firebaseUserAuthLiveData.observe(viewLifecycleOwner, {
             it?.email?.let { email ->
                 navController.navigate(
-                    LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(
+                    LoginFragmentDirections.toWelcomeFragment(
                         email
                     )
                 )

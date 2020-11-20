@@ -1,24 +1,22 @@
 package edu.utap.mytrivia.ui.main.viewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.utap.mytrivia.data.Repository
+import edu.utap.mytrivia.data.RepositoryImpl
 import edu.utap.mytrivia.data.firebase.FirebaseFireStore
 import edu.utap.mytrivia.data.firebase.FirebaseUserAuthLiveData
-import edu.utap.mytrivia.data.local.MyTriviaDatabase
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
-class MainViewModel(app: Application) : AndroidViewModel(app) {
+class MainViewModel @ViewModelInject constructor(private val repository: Repository) : ViewModel() {
 
     val firebaseUserAuthLiveData = FirebaseUserAuthLiveData()
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
-    private val repository =
-        Repository(db = MyTriviaDatabase.getDatabaseInstance(app))
-
 
     fun load() {
         _isLoading.postValue(true)
@@ -30,7 +28,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     fun downloadQuizzes() {
         viewModelScope.launch {
-            firebaseUserAuthLiveData.uid()?.let { uid ->
+            firebaseUserAuthLiveData.value?.uid?.let { uid ->
                 FirebaseFireStore.download(uid)?.let {
                     repository.insertQuizzes(it)
                 }

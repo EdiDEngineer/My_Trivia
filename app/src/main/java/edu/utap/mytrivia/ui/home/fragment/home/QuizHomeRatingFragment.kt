@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import edu.utap.mytrivia.R
 import edu.utap.mytrivia.databinding.FragmentQuizHomeRatingBinding
 import edu.utap.mytrivia.ui.home.fragment.home.viewModel.QuizHomeViewModel
 import edu.utap.mytrivia.util.showSnackBar
 
+@AndroidEntryPoint
 class QuizHomeRatingFragment : Fragment(R.layout.fragment_quiz_home_rating) {
     
     private lateinit var binding: FragmentQuizHomeRatingBinding

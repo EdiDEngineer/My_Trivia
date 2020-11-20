@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.utap.mytrivia.R
 import edu.utap.mytrivia.data.local.entity.Quiz
 import edu.utap.mytrivia.databinding.ItemQuizBinding
-import edu.utap.mytrivia.ui.home.fragment.dashboard.adapter.QuizScoreListAdapter.QuizScoreListViewHolder.Companion.from
+import edu.utap.mytrivia.ui.home.fragment.dashboard.adapter.QuizListAdapter.QuizScoreListViewHolder.Companion.from
 
-class QuizScoreListAdapter : ListAdapter<Quiz,
-        QuizScoreListAdapter.QuizScoreListViewHolder>(QuizDiffCallback()) {
+class QuizListAdapter : ListAdapter<Quiz,
+        QuizListAdapter.QuizScoreListViewHolder>(QuizDiffCallback()) {
 
     override fun onBindViewHolder(holder: QuizScoreListViewHolder, position: Int) {
         holder.bind(getItem(position))
@@ -29,10 +29,8 @@ class QuizScoreListAdapter : ListAdapter<Quiz,
         fun bind(item: Quiz) {
             binding.quiz = item
             binding.score.text = "${item.score} (${item.maxScore})"
-            val categoryString = SpannableStringBuilder()
-            categoryString.append("Category: ")
-            categoryString.append(item.category)
-            binding.category.text = categoryString
+            binding.category.text =
+                SpannableStringBuilder().append("Category: ").append(item.category)
 
             binding.seeMore.setOnClickListener {
                 if (binding.group.visibility == View.GONE) {
