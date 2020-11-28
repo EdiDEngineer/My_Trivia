@@ -35,7 +35,7 @@ class QuizHomeRatingFragment : Fragment(R.layout.fragment_quiz_home_rating) {
             viewModel.save()
             navController.popBackStack()
         } else {
-            showSnackBar("Rate quiz to finish.", Snackbar.LENGTH_SHORT)
+            showSnackBar("Rate quiz to Save.", Snackbar.LENGTH_SHORT)
         }
     }
 

@@ -32,7 +32,6 @@ class QuizDashboardViewFragment : Fragment(R.layout.fragment_quiz_dashboard_view
 
     private fun initViews() {
         binding = FragmentQuizDashboardViewBinding.bind(requireView())
-        viewModel.getQuizzesByDifficulty(navArgs.difficulty)
         binding.fragment = this
         binding.lifecycleOwner = viewLifecycleOwner
         (activity as HomeActivity).supportActionBar?.title =

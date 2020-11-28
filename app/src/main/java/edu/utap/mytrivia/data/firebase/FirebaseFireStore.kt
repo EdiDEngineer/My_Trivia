@@ -20,6 +20,7 @@ object FirebaseFireStore {
                 .await()
             firebase
         } catch (e: Exception) {
+            e.printStackTrace()
             null
         }
 
@@ -34,6 +35,7 @@ object FirebaseFireStore {
                     it.toObject(FirebaseQuiz::class.java)
                 }
         } catch (e: Exception) {
+            e.printStackTrace()
             null
         }
     }
@@ -44,6 +46,7 @@ object FirebaseFireStore {
                 .document(remoteReferenceID)
                 .delete().await()
         } catch (e: Exception) {
+            e.printStackTrace()
             null
         }
     }

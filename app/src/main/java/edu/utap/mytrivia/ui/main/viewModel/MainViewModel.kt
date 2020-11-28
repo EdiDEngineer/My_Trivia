@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.utap.mytrivia.data.Repository
-import edu.utap.mytrivia.data.RepositoryImpl
 import edu.utap.mytrivia.data.firebase.FirebaseFireStore
 import edu.utap.mytrivia.data.firebase.FirebaseUserAuthLiveData
 import kotlinx.coroutines.launch
@@ -17,6 +16,8 @@ class MainViewModel @ViewModelInject constructor(private val repository: Reposit
     val firebaseUserAuthLiveData = FirebaseUserAuthLiveData()
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
+    private val _doneDownLoading = MutableLiveData("")
+    val doneDownLoading: LiveData<String> = _doneDownLoading
 
     fun load() {
         _isLoading.postValue(true)
@@ -28,10 +29,14 @@ class MainViewModel @ViewModelInject constructor(private val repository: Reposit
 
     fun downloadQuizzes() {
         viewModelScope.launch {
-            firebaseUserAuthLiveData.value?.uid?.let { uid ->
+            val userAuth = firebaseUserAuthLiveData.value
+            userAuth?.uid?.let { uid ->
                 FirebaseFireStore.download(uid)?.let {
                     repository.insertQuizzes(it)
                 }
+            }
+            userAuth?.email?.let {
+                _doneDownLoading.postValue(it)
             }
         }
     }

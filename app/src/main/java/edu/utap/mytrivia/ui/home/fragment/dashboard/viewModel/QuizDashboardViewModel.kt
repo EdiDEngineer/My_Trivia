@@ -3,7 +3,6 @@ package edu.utap.mytrivia.ui.home.fragment.dashboard.viewModel
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import edu.utap.mytrivia.data.Repository
-import edu.utap.mytrivia.data.RepositoryImpl
 import edu.utap.mytrivia.data.firebase.FirebaseFireStore
 import edu.utap.mytrivia.data.firebase.FirebaseUserAuthLiveData
 import edu.utap.mytrivia.data.local.entity.Quiz
@@ -16,18 +15,25 @@ class QuizDashboardViewModel @ViewModelInject constructor(
 ) : ViewModel() {
 
     private lateinit var quizzes: List<Quiz>
-    private val _getQuizzesByDifficulty = MediatorLiveData<List<Quiz>>()
-    val getQuizzesByDifficulty: LiveData<List<Quiz>> = _getQuizzesByDifficulty
+    private val _getQuizzesByDifficulty = MediatorLiveData<List<Quiz>?>()
+    val getQuizzesByDifficulty: LiveData<List<Quiz>?> = _getQuizzesByDifficulty
     val firebaseUserAuthLiveData = FirebaseUserAuthLiveData()
     private val _upload = MutableLiveData(false)
     val upload: LiveData<Boolean> = _upload
+    private var observeQuizzesByDifficulty: LiveData<List<Quiz>>? = null
 
     fun getQuizzesByDifficulty(difficulty: String) {
-        _getQuizzesByDifficulty.apply {
-            addSource(repository.observeQuizzesByDifficulty(difficulty)) {
-                quizzes = it
-                postValue(quizzes)
-            }
+        observeQuizzesByDifficulty = repository.observeQuizzesByDifficulty(difficulty)
+        _getQuizzesByDifficulty.addSource(observeQuizzesByDifficulty!!) {
+            quizzes = it
+            _getQuizzesByDifficulty.postValue(quizzes)
+        }
+    }
+
+    fun resetQuizzes() {
+        _getQuizzesByDifficulty.postValue(null)
+        observeQuizzesByDifficulty?.let {
+            _getQuizzesByDifficulty.removeSource(it)
         }
     }
 

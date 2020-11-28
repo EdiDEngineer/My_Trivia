@@ -99,13 +99,25 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             it.isValidPassword()
         }
 
-        viewModel.firebaseUserAuthLiveData.observe(viewLifecycleOwner, {
-            it?.email?.let { email ->
+        viewModel.doneDownLoading.observe(viewLifecycleOwner, {
+            if ((viewModel.isLoading.value == true) && (!it.isNullOrEmpty())) {
                 navController.navigate(
                     LoginFragmentDirections.toWelcomeFragment(
-                        email
+                        it
                     )
                 )
+            }
+        })
+
+        viewModel.firebaseUserAuthLiveData.observe(viewLifecycleOwner, {
+            it?.email?.let { email ->
+                if (viewModel.isLoading.value == false) {
+                    navController.navigate(
+                        LoginFragmentDirections.toWelcomeFragment(
+                            email
+                        )
+                    )
+                }
             }
         })
 

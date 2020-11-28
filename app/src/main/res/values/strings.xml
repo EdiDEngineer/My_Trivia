@@ -32,7 +32,7 @@
     <string name="play">play</string>
     <string name="rate_game_amp_save"><![CDATA[Rate game & save]]></string>
     <string name="save">Save</string>
-    <string name="the_number_of_questions_is_required_nthe_higher_the_difficulty_the_higher_the_points_and_lesser_the_duration">The number of questions is required.*\nThe higher the difficulty the higher the points and duration per question.</string>
+    <string name="the_number_of_questions_is_required_nthe_higher_the_difficulty_the_higher_the_points_and_lesser_the_duration">Network Connectivity is required to play\nThe number of questions is required.*\nThe higher the difficulty the higher the points and duration per question.</string>
     <string name="enter_number_of_questions_from_5_50">Enter number of questions from 5 – 50 *</string>
     <string name="start">Start</string>
     <string name="already_have_an_account">Already have an account?</string>

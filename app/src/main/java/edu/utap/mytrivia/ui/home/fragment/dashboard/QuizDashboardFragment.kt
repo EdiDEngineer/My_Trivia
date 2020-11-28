@@ -32,6 +32,7 @@ class QuizDashboardFragment : Fragment(R.layout.fragment_quiz_dashboard) {
         createReveal(binding.easyDifficultyGroup)
         createReveal(binding.mediumDifficultyGroup)
         createReveal(binding.hardDifficultyGroup)
+        viewModel.resetQuizzes()
     }
 
 
@@ -47,7 +48,6 @@ class QuizDashboardFragment : Fragment(R.layout.fragment_quiz_dashboard) {
             0f,
             finalRadius
         ).apply {
-            setDuration(2000L)
             start()
         }
     }
@@ -86,6 +86,7 @@ class QuizDashboardFragment : Fragment(R.layout.fragment_quiz_dashboard) {
     }
 
     private fun navigateToDashboard(difficulty: String) {
+        viewModel.getQuizzesByDifficulty(difficulty)
         navController.navigate(
             QuizDashboardFragmentDirections.actionNavigationQuizDashboardToQuizDashboardViewFragment(
                 difficulty

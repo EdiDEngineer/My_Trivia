@@ -77,11 +77,11 @@ fun Context.showShortToast(message: String) {
 
 fun String.fromHtmlToString() =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY).toString()
+        Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
     } else {
         @Suppress("DEPRECATION")
-        Html.fromHtml(this).toString()
-    }
+        Html.fromHtml(this)
+    }.toString()
 
 fun Context.showDialog(
     title: String? = null,

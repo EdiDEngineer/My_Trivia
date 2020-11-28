@@ -24,18 +24,16 @@ class FirebaseUserAuthLiveData : LiveData<FirebaseUser?>() {
         firebaseAuth.removeAuthStateListener(authStateListener)
     }
 
-    suspend fun createAccount(email: String, password: String) = withContext(Dispatchers.IO)
-    {
+    suspend fun createAccount(email: String, password: String) = withContext(Dispatchers.IO) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
     }
 
-    suspend fun signIn(email: String, password: String) =
-        withContext(Dispatchers.IO)
-        {
-            firebaseAuth.signInWithEmailAndPassword(email, password)
-        }
+    suspend fun signIn(email: String, password: String) = withContext(Dispatchers.IO) {
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+    }
 
-    suspend fun signOut() = withContext(Dispatchers.IO)
-    { firebaseAuth.signOut() }
+    suspend fun signOut() = withContext(Dispatchers.IO) {
+        firebaseAuth.signOut()
+    }
 
 }
