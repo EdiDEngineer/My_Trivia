@@ -8,12 +8,12 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 object FirebaseFireStore {
-    private val db = FirebaseFirestore.getInstance()
     private const val remoteQuizTable = "remoteQuizTable"
 
     suspend fun upload(firebase: FirebaseQuiz) = withContext(Dispatchers.IO) {
         try {
-            firebase.remoteReferenceID = db.collection(remoteQuizTable).document().id
+            val db =  FirebaseFirestore.getInstance()
+            firebase.remoteReferenceID =  db.collection(remoteQuizTable).document().id
             db.collection(remoteQuizTable)
                 .document(firebase.remoteReferenceID)
                 .set(firebase)
@@ -28,6 +28,7 @@ object FirebaseFireStore {
 
     suspend fun download(ownerUid: String) = withContext(Dispatchers.IO) {
         try {
+            val db =  FirebaseFirestore.getInstance()
             db.collection(remoteQuizTable)
                 .whereEqualTo("ownerUid", ownerUid)
                 .get()
@@ -42,6 +43,7 @@ object FirebaseFireStore {
 
     suspend fun delete(remoteReferenceID: String) = withContext(Dispatchers.IO) {
         try {
+            val db =  FirebaseFirestore.getInstance()
             db.collection(remoteQuizTable)
                 .document(remoteReferenceID)
                 .delete().await()

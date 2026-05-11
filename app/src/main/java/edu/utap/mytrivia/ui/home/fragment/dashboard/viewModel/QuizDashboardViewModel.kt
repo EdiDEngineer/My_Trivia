@@ -2,6 +2,7 @@ package edu.utap.mytrivia.ui.home.fragment.dashboard.viewModel
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.google.firebase.firestore.FirebaseFirestore
 import edu.utap.mytrivia.data.Repository
 import edu.utap.mytrivia.data.firebase.FirebaseFireStore
 import edu.utap.mytrivia.data.firebase.FirebaseUserAuthLiveData
